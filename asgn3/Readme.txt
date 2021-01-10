@@ -1,0 +1,3 @@
+1. Enter file name, if file is found in the directory of server, transfer takes place and a file with the same name isc created in the client directory with the same name. Client closes after printing appropriate messages, server keeps running.
+2. Enter file name, if not found in server directory. Client closes after printing appropriate message, server program keeps running after closing the connection.
+3.(convenience functionality for testing) type "exit" from the client to end the client program and the server process.

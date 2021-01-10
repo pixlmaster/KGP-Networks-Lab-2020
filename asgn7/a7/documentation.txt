@@ -1,0 +1,81 @@
+
+##Retransmission Table
+
+DROP_PROBALITY : Drop probablity in rsocket.h
+N_RETRANSMITS  : No of retransmits done
+N_SEND         : length of message
+AVG_N_TRANS    : (N_RETRANSMITS + N_SEND)/ N_RETRANSMITS
+
+MESSAGE: zxcvbnm
+
+DROP_PROBALITY||N_RETRANSMITS||N_SEND||AVG_N_TRANS
+
+0.05		21 	 	    7     4.0
+0.10		21 	 	    7     4.0
+0.15		21 	 	    7     4.0
+0.20		21 	 	    7     4.0
+0.25		21 	 	    7     4.0
+0.30		21 	 	    7     4.0
+0.35		129 	 	7     19.4
+0.40		129 	 	7     19.4
+0.45		129 	 	7     19.4
+0.50		129 	 	7     19.4
+
+MESSAGE:zxcvbnmasdfghjkl
+
+DROP_PROBALITY||N_RETRANSMITS||N_SEND||AVG_N_TRANS
+
+0.05		215 	 	16     14.4
+0.10		215 	 	16     14.4
+0.15		236 	 	16     15.8
+0.20		236 	 	16     15.8
+0.25		350 	 	16     22.9
+0.30		350 	 	16     22.9
+0.35		636 	 	16     40.8
+0.40		636 	 	16     40.8
+0.45		646 	 	16     41.4
+0.50		646 	 	16     41.4
+
+
+##Data Structures
+1.Send message buffer-
+
+SendBuffer{
+    struct sockaddr to;         // Address of recepient
+    socklen_t addrlen;          // len of structure)
+    int types;                  // type of message(normal/ACK)
+    int flags;                  // flags
+    char *msg;                  // Message
+    int msg_len                 // length of the message
+};
+
+
+2. Hash Table RecvMessgaeIdTable
+
+RecvMessageId{
+    int mid;                        // message id
+    struct sockaddr src_addr;      // Address of sender
+}
+
+
+3. Circular linked list recv message buffer
+
+RcvBuff{
+    char msg[100];              // Message stored in buffer
+    struct ReceiveBuffer* next; // link to the next node
+};
+
+
+4. Array of unack_message
+
+unack_message{
+    int mid;                     // message id 
+    char msg[MSG_SIZE];         // message
+    int msg_len;                // message len 
+    time_t time;                // time for time out
+    int flags;                  // flags
+    struct sockaddr dest_addr;  // Address of recepient 
+    socklen_t addrlen;          // len of structure 
+};
+
+NEW DATA ON RUNNING WILL BE APPENDED HERE
